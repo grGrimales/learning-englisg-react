@@ -9,9 +9,9 @@ const getVocabulary = async (req, res = response) => {
         const vocabularys = await Vocabulary.find();
 
         res.json({
+            total: vocabularys.length,
             ok: true,
-            vocabularys,
-            total: vocabularys.length
+            vocabularys
         });
 
     } catch (error) {
@@ -66,8 +66,6 @@ const insertVocabulary = async (req, res = response) => {
             }]
         });
 
-        console.log(newVocabulary);
-
         await Vocabulary.insertMany(newVocabulary);
 
         res.json({
@@ -85,7 +83,53 @@ const insertVocabulary = async (req, res = response) => {
 }
 
 
+const deleteVocabulary = async (req, res = response) => {
+
+    try {
+
+
+        const { extractSheets } = require("spreadsheet-to-json");
+
+        // optional custom format cell function
+        const data = await extractSheets({
+            spreadsheetKey: process.env.SPREADSHEEKEY,
+            credentials: require("../assets/client_secret.json"),
+            sheetsToExtract: ["db"],
+        });
+
+
+        // Scacamos el listado de keys actuales en la base de datos
+        const vocabularys = await Vocabulary.find();
+
+        const VocabularysId = vocabularys.map(v => v.id);
+
+
+        const deleteVocabulary = await data.db.filter(d =>
+            d.action === "delete" && VocabularysId.includes(d.id)
+        );
+
+        const idToDelete = deleteVocabulary.map(d => d.id);
+
+        await Vocabulary.deleteMany({ _id: idToDelete })
+
+        res.json({
+            ok: true,
+            msg: 'Vocabulary eliminadas'
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to the database administrator'
+        });
+    }
+
+}
+
+
 module.exports = {
     getVocabulary,
-    insertVocabulary
+    insertVocabulary,
+    deleteVocabulary
 }

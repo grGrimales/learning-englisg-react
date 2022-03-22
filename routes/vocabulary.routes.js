@@ -5,23 +5,29 @@ const { validateJWT } = require('../middlewares/validate-jwt');
 
 const router = Router();
 
-const { getVocabulary, insertVocabulary } = require("../controllers/vocabulary.controllers");
+const { getVocabulary, insertVocabulary, deleteVocabulary } = require("../controllers/vocabulary.controllers");
 
 
-router.get("/",
-    [
-        validateJWT,
-        validateFields,
-    ],
+router.get("/", [
+    validateJWT,
+    validateFields,
+],
     getVocabulary);
 
-    router.post("/",
-    [
-        validateJWT,
-        validateFields,
-    ],
-    
+router.post("/", [
+    validateJWT,
+    validateFields,
+],
+
     insertVocabulary)
+
+
+router.delete("/", [
+    validateJWT,
+    validateFields,
+],
+    deleteVocabulary)
+
 
 
 
