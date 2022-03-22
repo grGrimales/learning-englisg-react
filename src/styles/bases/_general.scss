@@ -1,0 +1,49 @@
+@import "settings.scss";
+
+* {
+  font-family: $tipografia-principal;
+  margin: 0px;
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100wh;
+}
+
+ul {
+  padding: 0;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  background: $color-principal;
+  color: $color-letra;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus,
+select:focus {
+  border: 3px solid $color-secundario;
+  background: $color-principal;
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+}
