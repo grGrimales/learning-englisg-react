@@ -40,7 +40,7 @@ const insertVocabulary = async (req, res = response) => {
         const data = await extractSheets({
             spreadsheetKey: process.env.SPREADSHEEKEY,
             credentials: require("../assets/client_secret.json"),
-            sheetsToExtract: ["vocabulary"],
+            sheetsToExtract: ["new"],
         });
 
         // Filtramos la data que este como new y que el key no se encuentre en la base de datos
