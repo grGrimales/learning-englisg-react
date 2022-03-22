@@ -12,6 +12,7 @@ class Server {
 
         this.paths = {
             auth: '/api/auth',
+            vocabulary: '/api/vocabulary'
 
         }
 
@@ -53,7 +54,7 @@ class Server {
 
     routes() {
         this.app.use( this.paths.auth, require('../routes/auth.routes'));
-
+        this.app.use( this.paths.vocabulary, require('../routes/vocabulary.routes'));
 
     }
 
