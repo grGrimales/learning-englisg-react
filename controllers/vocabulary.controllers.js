@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { randomOrder, orderByLeastPlayed, orderByLeastHits } = require('../helpers/helpers');
+const { randomOrder, orderByLeastPlayed } = require('../helpers/helpers');
 
 const { Vocabulary } = require('../models/');
 
@@ -93,9 +93,9 @@ const getVocabulary = async (req, res = response) => {
 
 
         res.json({
-            total: vocabularyOrder.length,
             ok: true,
-            vocabularyOrder
+            total: vocabularyOrder.length,
+            vocabularys: vocabularyOrder
         });
 
     } catch (error) {
