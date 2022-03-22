@@ -43,9 +43,10 @@ const insertVocabulary = async (req, res = response) => {
             sheetsToExtract: ["new"],
         });
 
+
         // Filtramos la data que este como new y que el key no se encuentre en la base de datos
         // para dejar solo los nuevos
-        const newVocabulary = await data.vocabulary.filter(d => {
+        const newVocabulary = await data.new.filter(d => {
             return d.action === "new" && !VocabularysKeys.includes(d.key)
         });
 
