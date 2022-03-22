@@ -36,7 +36,12 @@ const VocabularySchema = Schema({
         type: [String],
         required: true,
         unique: false
+    },
+    creationDate: {
+        type: String,
+        required: [true, 'creationDate is required'],
     }
+
 });
 
 
