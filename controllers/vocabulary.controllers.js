@@ -1,5 +1,5 @@
 const { response } = require('express');
-const { randomOrder, orderByLeastPlayed } = require('../helpers/helpers');
+const { randomOrder, orderByLeastPlayed, orderByLeastHits } = require('../helpers/helpers');
 
 const { Vocabulary } = require('../models/');
 
