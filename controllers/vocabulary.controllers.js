@@ -1,4 +1,5 @@
 const { response } = require('express');
+const res = require('express/lib/response');
 const { randomOrder, orderByLeastPlayed, orderByLeastHits } = require('../helpers/helpers');
 
 const { Vocabulary } = require('../models/');
@@ -167,6 +168,49 @@ const insertVocabulary = async (req, res = response) => {
 }
 
 
+const updateVocabulary = async (req, res = response) => {
+
+    try {
+
+
+        // Extraemos informacion del excel
+        const { extractSheets } = require("spreadsheet-to-json");
+        const data = await extractSheets({
+            spreadsheetKey: process.env.SPREADSHEEKEY,
+            credentials: require("../assets/client_secret.json"),
+            sheetsToExtract: ["db"],
+        });
+
+
+        // Scacamos el listado de id actuales en la base de datos
+        const vocabularys = await Vocabulary.find();
+        const vocabularysId = vocabularys.map(v => v.id);
+
+        // Nos quedamos solo con los valores que queremos actualizar y tengan un id valido
+        const updateVocabulary = await data.db.filter(d =>
+            d.action === "update" && vocabularysId.includes(d.id)
+        );
+
+        updateVocabulary.forEach(async u => {
+            await Vocabulary.findByIdAndUpdate(u.id,u);
+        });
+
+        res.json({
+            ok: true,
+            msg: "vocabulary actualizado con exito"
+        });
+
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to the database administrator'
+        });
+    }
+
+}
+
 const deleteVocabulary = async (req, res = response) => {
 
     try {
@@ -215,5 +259,6 @@ const deleteVocabulary = async (req, res = response) => {
 module.exports = {
     getVocabulary,
     insertVocabulary,
-    deleteVocabulary
+    deleteVocabulary,
+    updateVocabulary
 }
