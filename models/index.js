@@ -1,5 +1,7 @@
 const User = require('./user.model');
 const Vocabulary = require('./vocabulary.model');
+const Category = require('./category.model');
+
 
 
 
@@ -9,4 +11,5 @@ module.exports = {
     Server,
     User,
     Vocabulary,
+    Category,
 }

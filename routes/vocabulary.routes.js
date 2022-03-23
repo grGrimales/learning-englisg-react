@@ -9,7 +9,9 @@ const {
     getVocabulary,
     insertVocabulary,
     deleteVocabulary,
-    updateVocabulary } = require("../controllers/vocabulary.controllers");
+    updateVocabulary,
+    getVocabularyCategory, 
+    updateVocabularyCategory} = require("../controllers/vocabulary.controllers");
 
 
 router.get("/", [
@@ -38,6 +40,20 @@ router.put("/", [
     validateFields,
 ],
     updateVocabulary)
+
+
+router.get("/category-vocabulary", [
+    validateJWT,
+    validateFields,
+],
+    getVocabularyCategory);
+
+
+router.put("/update-category", [
+    validateJWT,
+    validateFields,
+],
+    updateVocabularyCategory)
 
 
 

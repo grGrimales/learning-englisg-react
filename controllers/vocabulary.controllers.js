@@ -2,7 +2,7 @@ const { response } = require('express');
 const res = require('express/lib/response');
 const { randomOrder, orderByLeastPlayed, orderByLeastHits } = require('../helpers/helpers');
 
-const { Vocabulary } = require('../models/');
+const { Vocabulary, Category } = require('../models/');
 
 const listOrder = ["random", "leastplayed", "leasthits"]
 
@@ -192,7 +192,7 @@ const updateVocabulary = async (req, res = response) => {
         );
 
         updateVocabulary.forEach(async u => {
-            await Vocabulary.findByIdAndUpdate(u.id,u);
+            await Vocabulary.findByIdAndUpdate(u.id, u);
         });
 
         res.json({
@@ -255,10 +255,77 @@ const deleteVocabulary = async (req, res = response) => {
 
 }
 
+const getVocabularyCategory = async (req, res = response) => {
+    try {
+
+        const category = await Category.find();
+
+        res.json({
+            ok: true,
+            categoryVocabulary : category[0].categorysVocabulary
+        });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to the database administrator'
+        });
+    }
+}
+
+
+const updateVocabularyCategory = async (req, res = response ) => {
+    try {
+        
+        await Category.deleteMany();
+        const vocabularys = await Vocabulary.find();
+
+        
+        let vocabularyCategorys = [];
+
+        vocabularys.forEach(v => {
+            v.category.forEach(c => {
+
+                if (!vocabularyCategorys.includes(c.toUpperCase())) {
+                    vocabularyCategorys.push(c.toUpperCase());
+                }
+            });
+        });
+
+        const category = new Category({
+            categorysVocabulary:  vocabularyCategorys,
+            phraseVocabulary : []
+        });
+
+        console.log(category)
+
+        await category.save();
+
+        res.json({
+            ok: true,
+            msg: 'Categorias actualizadas cone exito',
+            category
+
+        })
+
+
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to the database administrator'
+        });
+    }
+}
+
 
 module.exports = {
     getVocabulary,
     insertVocabulary,
     deleteVocabulary,
-    updateVocabulary
+    updateVocabulary,
+    getVocabularyCategory,
+    updateVocabularyCategory,
 }
