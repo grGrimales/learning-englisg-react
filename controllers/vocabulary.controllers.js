@@ -6,15 +6,32 @@ const { Vocabulary, Category } = require('../models/');
 
 const listOrder = ["random", "leastplayed", "leasthits"]
 
+const getOrderType = async (req, res = response) => {
+    try {
+
+        res.json({
+            "order-type": listOrder
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'talk to the database administrator'
+        });
+    }
+}
+
 
 const getVocabulary = async (req, res = response) => {
 
     try {
 
-        const { order } = req.query;
+        const { order, category } = req.query;
+
         const uid = req.user.id;
-        const vocabularys = await Vocabulary.find();
         let vocabularyOrder = [];
+
 
         // Validar que el parametro order este entre los validos
         if (!listOrder.includes(order)) {
@@ -26,6 +43,19 @@ const getVocabulary = async (req, res = response) => {
 
 
 
+        // Validamos que la categoria enviada se encuentre en la base de datos
+        const categoryDb = await Category.find();
+        const listCategoryDb = categoryDb[0].categorysVocabulary
+
+        if (!listCategoryDb.includes(category)) {
+            return res.json({
+                ok: false,
+                msg: `la categoria ${category} no es valida (${listCategoryDb.join(", ")})`
+            });
+        }
+
+        const vocabularys = await Vocabulary.find({ "category": { "$in": category } });
+
         // Prepara las estadisticas para el usuario
         const vocabularyWithStatistics = [];
         vocabularys.forEach(v => {
@@ -34,7 +64,7 @@ const getVocabulary = async (req, res = response) => {
             let existe = false;
             v.statistics.forEach(s => { if (s.uid === uid) existe = true });
 
-
+            // si elusuario existe devuelve las estadisticas, en caso de que no les coloca 0
             v.statistics.forEach(s => {
                 if (existe) {
                     if (s.uid == uid) {
@@ -225,12 +255,10 @@ const deleteVocabulary = async (req, res = response) => {
             sheetsToExtract: ["db"],
         });
 
-
         // Scacamos el listado de keys actuales en la base de datos
         const vocabularys = await Vocabulary.find();
 
         const VocabularysId = vocabularys.map(v => v.id);
-
 
         const deleteVocabulary = await data.db.filter(d =>
             d.action === "delete" && VocabularysId.includes(d.id)
@@ -262,7 +290,7 @@ const getVocabularyCategory = async (req, res = response) => {
 
         res.json({
             ok: true,
-            categoryVocabulary : category[0].categorysVocabulary
+            categoryVocabulary: category[0].categorysVocabulary
         });
 
     } catch (error) {
@@ -275,30 +303,26 @@ const getVocabularyCategory = async (req, res = response) => {
 }
 
 
-const updateVocabularyCategory = async (req, res = response ) => {
+const updateVocabularyCategory = async (req, res = response) => {
     try {
-        
+
         await Category.deleteMany();
         const vocabularys = await Vocabulary.find();
-
-        
         let vocabularyCategorys = [];
 
         vocabularys.forEach(v => {
             v.category.forEach(c => {
 
-                if (!vocabularyCategorys.includes(c.toUpperCase())) {
-                    vocabularyCategorys.push(c.toUpperCase());
+                if (!vocabularyCategorys.includes(c)) {
+                    vocabularyCategorys.push(c);
                 }
             });
         });
 
         const category = new Category({
-            categorysVocabulary:  vocabularyCategorys,
-            phraseVocabulary : []
+            categorysVocabulary: vocabularyCategorys,
+            phraseVocabulary: []
         });
-
-        console.log(category)
 
         await category.save();
 
@@ -328,4 +352,5 @@ module.exports = {
     updateVocabulary,
     getVocabularyCategory,
     updateVocabularyCategory,
+    getOrderType,
 }

@@ -11,7 +11,8 @@ const {
     deleteVocabulary,
     updateVocabulary,
     getVocabularyCategory, 
-    updateVocabularyCategory} = require("../controllers/vocabulary.controllers");
+    updateVocabularyCategory,
+    getOrderType} = require("../controllers/vocabulary.controllers");
 
 
 router.get("/", [
@@ -54,6 +55,12 @@ router.put("/update-category", [
     validateFields,
 ],
     updateVocabularyCategory)
+
+
+    router.get("/order-type", [
+        validateJWT,
+        validateFields,  
+    ], getOrderType)
 
 
 
