@@ -17,19 +17,18 @@ export const authReducer = (state = initialState, action) => {
         logged: true,
       };
 
-    // case types.authCheckingFinish:
-    //   return {
-    //     ...state,
-    //     checking: false,
-    //     logged: false,
-    //   };
+    case types.authChekingFinish:
+      return {
+        ...state,
+        checking: false,
+        logged: false,
+      };
 
-    // case types.authLogout:
-    //   return {
-    //     checking: false,
-    //     logged: false,
-
-    //   };
+    case types.authLogout:
+      return {
+        checking: false,
+        logged: false,
+      };
 
     default:
       return state;

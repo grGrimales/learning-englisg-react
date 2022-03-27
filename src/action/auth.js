@@ -1,5 +1,6 @@
-import { fetchSinToken } from "../helpers/fetch";
+import { fetchConToken, fetchSinToken } from "../helpers/fetch";
 import { types } from "../type/types";
+
 import Swal from "sweetalert2";
 
 export const startLogin = (email, password) => {
@@ -17,7 +18,6 @@ export const startLogin = (email, password) => {
 
     if (body.ok) {
       localStorage.setItem("token", body.user.token);
-      console.log(body);
       dispatch(
         login({
           uid: body.user.uid,
@@ -36,6 +36,37 @@ export const startLogin = (email, password) => {
     }
   };
 };
+
+export const startCheking = () => {
+  return async (dispatch) => {
+    const resp = await fetchConToken("auth/renew-token");
+    const body = await resp.json();
+    if (body.ok) {
+      localStorage.setItem("token", body.user.token);
+      dispatch(
+        login({
+          uid: body.user.uid,
+          name: body.user.name,
+        })
+      );
+    } else {
+      dispatch(checkingFinish());
+    }
+  };
+};
+
+const checkingFinish = () => ({
+  type: types.authChekingFinish,
+});
+
+export const startLogout = () => {
+  return (dispatch) => {
+    localStorage.clear();
+    dispatch(logout());
+  };
+};
+
+const logout = () => ({ type: types.authLogout });
 
 const login = (user) => ({
   type: types.authLogin,

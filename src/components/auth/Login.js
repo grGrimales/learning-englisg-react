@@ -1,12 +1,16 @@
-import React, { useState } from "react";
-
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { startLogin } from "../../action/auth";
 import { useForm } from "../../hooks/useForm";
+import { Vocabulary } from "../pages/Vocabulary";
 
 export const Login = () => {
+  const { logged } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [error, setError] = useState();
   const [message, setMessage] = useState();
@@ -55,6 +59,7 @@ export const Login = () => {
 
     if (IsformValid()) {
       dispatch(startLogin(email, password));
+      navigate("/vocabulary-form", { replace: true });
     }
   };
 
@@ -92,6 +97,8 @@ export const Login = () => {
           {error && <div className="alert__error">{message}</div>}
         </form>
       </div>
+
+      <Vocabulary />
     </>
   );
 };

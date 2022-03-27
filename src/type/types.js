@@ -6,7 +6,9 @@ export const types = {
   authChekingFinish: "[auth] Finish cheking login state",
   authStartLogin: "[auth] Start login",
   // authStartTokenRenew: "[auth] Start token renew",
-  // authLogout: "[auth] Logout",
+  authLogout: "[auth] Logout",
+
+  categoryList: "[page] Vocabulary category",
 
   // pageStartAddNew: "[  page] Start add new",
   // pageAddNew: "[  page] Add new",
