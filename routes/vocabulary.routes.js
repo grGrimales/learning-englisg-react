@@ -10,9 +10,11 @@ const {
     insertVocabulary,
     deleteVocabulary,
     updateVocabulary,
-    getVocabularyCategory, 
+    getVocabularyCategory,
     updateVocabularyCategory,
-    getOrderType} = require("../controllers/vocabulary.controllers");
+    getOrderType, 
+    increaseVocabularyNumberReproductions} = require("../controllers/vocabulary.controllers");
+const { vocabularyExistsById } = require('../helpers/db-validators');
 
 
 router.get("/", [
@@ -57,10 +59,21 @@ router.put("/update-category", [
     updateVocabularyCategory)
 
 
-    router.get("/order-type", [
-        validateJWT,
-        validateFields,  
-    ], getOrderType)
+router.get("/order-type", [
+    validateJWT,
+    validateFields,
+], getOrderType)
+
+
+router.put("/increase-number-reproductions/:id", [
+    validateJWT,
+    check('id', 'not a valid mongo id').isMongoId(),
+    validateFields,
+    check('id').custom(vocabularyExistsById),
+    validateFields,
+
+], increaseVocabularyNumberReproductions)
+
 
 
 
