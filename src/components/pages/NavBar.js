@@ -24,7 +24,7 @@ export const NavBar = () => {
           <ul className="nav" className={click ? "nav active" : "nav"}>
             <li className="nav__item">
               <NavLink
-                to="/vocabulary-form"
+                to="/vocabulary"
                 className={({ isActive }) =>
                   `nav__links ${isActive ? "nav__links--active" : ""}`
                 }

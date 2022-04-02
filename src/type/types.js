@@ -10,6 +10,8 @@ export const types = {
 
   categoryList: "[page] Vocabulary category",
 
+  listFiltered: "[page] Vocabulary filtered ",
+
   // pageStartAddNew: "[  page] Start add new",
   // pageAddNew: "[  page] Add new",
   // pageUpdated: "[  page] Dashboard  updated",

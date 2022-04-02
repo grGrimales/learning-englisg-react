@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import validator from "validator";
 import { startLogin } from "../../action/auth";
 import { useForm } from "../../hooks/useForm";
-import { Vocabulary } from "../pages/Vocabulary";
 
 export const Login = () => {
   const { logged } = useSelector((state) => state.auth);
@@ -59,7 +58,7 @@ export const Login = () => {
 
     if (IsformValid()) {
       dispatch(startLogin(email, password));
-      navigate("/vocabulary-form", { replace: true });
+      navigate("vocabulary", { replace: true });
     }
   };
 
@@ -97,8 +96,6 @@ export const Login = () => {
           {error && <div className="alert__error">{message}</div>}
         </form>
       </div>
-
-      <Vocabulary />
     </>
   );
 };

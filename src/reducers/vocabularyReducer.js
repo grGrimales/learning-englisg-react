@@ -2,6 +2,8 @@ import { types } from "../type/types";
 
 const initialState = {
   listCategory: [],
+  listFileteredVocabulary: [],
+  showActivity: false,
 };
 
 export const vocabularyReducer = (state = initialState, action) => {
@@ -9,14 +11,15 @@ export const vocabularyReducer = (state = initialState, action) => {
     case types.categoryList:
       return {
         ...state,
-        listCategory: [action.payload],
+        listCategory: action.payload,
       };
 
-    // case types.pageList:
-    //   return {
-    //     ...state,
-    //     listadoPages: [...action.payload],
-    //   };
+    case types.listFiltered:
+      return {
+        ...state,
+        listFileteredVocabulary: action.payload,
+        showActivity: true,
+      };
 
     // case types.pageDeleted:
     //   return {
