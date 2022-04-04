@@ -8,9 +8,13 @@ export const types = {
   // authStartTokenRenew: "[auth] Start token renew",
   authLogout: "[auth] Logout",
 
-  categoryList: "[page] Vocabulary category",
+  categoryList: "[vocabulary] category",
 
-  listFiltered: "[page] Vocabulary filtered ",
+  listFiltered: "[vocabulary] List filtered ",
+  updateShowActivity: "[vocabulary] showa ctivity",
+  updateCurrentIndex: "[vocabulary] current index",
+
+  updateActiveWord: "[vocabulary] active word",
 
   // pageStartAddNew: "[  page] Start add new",
   // pageAddNew: "[  page] Add new",

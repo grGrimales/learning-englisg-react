@@ -4,6 +4,8 @@ const initialState = {
   listCategory: [],
   listFileteredVocabulary: [],
   showActivity: false,
+  currentIndex: 0,
+  activeWord: {},
 };
 
 export const vocabularyReducer = (state = initialState, action) => {
@@ -18,7 +20,24 @@ export const vocabularyReducer = (state = initialState, action) => {
       return {
         ...state,
         listFileteredVocabulary: action.payload,
-        showActivity: true,
+      };
+
+    case types.updateShowActivity:
+      return {
+        ...state,
+        showActivity: action.payload,
+      };
+
+    case types.updateCurrentIndex:
+      return {
+        ...state,
+        currentIndex: action.payload,
+      };
+
+    case types.updateActiveWord:
+      return {
+        ...state,
+        activeWord: action.payload,
       };
 
     // case types.pageDeleted:

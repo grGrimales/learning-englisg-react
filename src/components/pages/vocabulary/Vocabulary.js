@@ -1,26 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { getListFilteredVocabulary } from "../../../action/vocabulary";
 import { useForm } from "../../../hooks/useForm";
 import { VocabularyAc } from "./VocabularyAc";
 
 export const Vocabulary = () => {
-  const navigate = useNavigate();
-  let showActivity = localStorage.getItem("showActivity");
-  console.log(showActivity);
-  const { listCategory } = useSelector((state) => state.vocabulary);
+  const { listCategory, showActivity } = useSelector(
+    (state) => state.vocabulary
+  );
   const [error, setError] = useState();
   const [message, setMessage] = useState();
 
-  console.log(showActivity);
   const removeError = () => {
     setError(false);
     setMessage(null);
   };
 
   useEffect(() => {}, [showActivity]);
+
   const [formValues, handleInputChange, reset] = useForm({
     category: "--Seleccione--",
     order: "--Seleccione--",
@@ -33,10 +31,12 @@ export const Vocabulary = () => {
   const handleActivity = (e) => {
     e.preventDefault();
 
-    if (category && order != "--Seleccione--") {
+    if (category != "--Seleccione--" && order != "--Seleccione--") {
       dispatch(getListFilteredVocabulary(order, category));
-      reset();
       localStorage.setItem("category", category);
+      setTimeout(() => {
+        reset();
+      }, 800);
     } else {
       setError(true);
       setMessage("*Todos los campos son obligatorios");

@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-export const ActiveWord = ({ audio, englishWord, spanishWord, img }) => {
+export const ActiveWord = ({
+  audio,
+  englishWord,
+  spanishWord,
+  img,
+  hadleEndAudio,
+  audioSrc,
+}) => {
+  useEffect(() => {
+    console.log("cambio....");
+  }, [audio, englishWord]);
+
   return (
     <>
       <div className="container">
         <div className="container__audio">
-          <audio id="audio" controls>
-            <source src={audio} type="audio/mp3" />
+          <audio onEnded={hadleEndAudio} id="audio" controls>
+            <source src={audioSrc.src} type="audio/mp3" />
             Tu navegador no soporta audio HTML5.
           </audio>
         </div>

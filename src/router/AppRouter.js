@@ -7,12 +7,20 @@ import { startCheking } from "../action/auth";
 import { LearningEnglishRouter } from "./LearningEnglishRouter";
 import { PublicRoute } from "./PublicRoute";
 import { Espere } from "../components/Espere";
+import { updateShowActivity, updateActiveWord } from "../action/vocabulary";
 
 export const AppRouter = () => {
   const { checking } = useSelector((state) => state.auth);
   const { logged } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+
+  const showActivity = localStorage.getItem("showActivity");
+  const currentIndex = localStorage.getItem("currentIndex");
+  const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
+
+  dispatch(updateShowActivity(showActivity));
+  dispatch(updateActiveWord(listFiltered[currentIndex]));
 
   useEffect(() => {
     dispatch(startCheking());
