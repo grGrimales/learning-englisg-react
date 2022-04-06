@@ -43,7 +43,7 @@ const getVocabulary = async (req, res = response) => {
 
         // validar que el parametro limit es un numero
         if (limit) {
-            const regex = /^[1-9]*$/;
+            const regex = /^[0-9]*$/;
             const onlyNumbers = regex.test(limit);
 
             if (!onlyNumbers) {
