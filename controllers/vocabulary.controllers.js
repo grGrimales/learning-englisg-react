@@ -339,7 +339,7 @@ const updateVocabularyCategory = async (req, res = response) => {
 
         await Category.deleteMany();
         const vocabularys = await Vocabulary.find();
-        let vocabularyCategorys = [];
+        let vocabularyCategorys = ["total"];
 
         vocabularys.forEach(v => {
             v.category.forEach(c => {
