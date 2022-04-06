@@ -45,7 +45,7 @@ const getVocabulary = async (req, res = response) => {
         if (limit) {
             const regex = /^[1-9]*$/;
             const onlyNumbers = regex.test(limit);
-   
+
             if (!onlyNumbers) {
                 return res.json({
                     ok: false,
@@ -59,14 +59,22 @@ const getVocabulary = async (req, res = response) => {
         const categoryDb = await Category.find();
         const listCategoryDb = categoryDb[0].categorysVocabulary
 
-        if (!listCategoryDb.includes(category)) {
+        if (!listCategoryDb.includes(category) && category !== "total") {
             return res.json({
                 ok: false,
                 msg: `la categoria ${category} no es valida (${listCategoryDb.join(", ")})`
             });
         }
+        let vocabularys = [];
+        if (category === "total") {
 
-        const vocabularys = await Vocabulary.find({ "category": { "$in": category } });
+            vocabularys = await Vocabulary.find();
+
+        } else {
+            vocabularys = await Vocabulary.find({ "category": { "$in": category } });
+        }
+
+
 
         // Prepara las estadisticas para el usuario
         const vocabularyWithStatistics = [];
