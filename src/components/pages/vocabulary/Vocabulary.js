@@ -17,14 +17,15 @@ export const Vocabulary = () => {
     setMessage(null);
   };
 
-  useEffect(() => {}, [showActivity]);
+  useEffect(() => { }, [showActivity]);
 
   const [formValues, handleInputChange, reset] = useForm({
     category: "--Seleccione--",
     order: "--Seleccione--",
+    limit: 15
   });
 
-  const { category, order } = formValues;
+  const { category, order, limit } = formValues;
 
   const dispatch = useDispatch();
 
@@ -32,7 +33,7 @@ export const Vocabulary = () => {
     e.preventDefault();
 
     if (category != "--Seleccione--" && order != "--Seleccione--") {
-      dispatch(getListFilteredVocabulary(order, category));
+      dispatch(getListFilteredVocabulary(order, category, limit));
       localStorage.setItem("category", category);
       setTimeout(() => {
         reset();
@@ -93,6 +94,18 @@ export const Vocabulary = () => {
                   <option value="leastplayed">Menos reproducidas</option>
                   <option value="leasthits">Menos aciertos</option>
                 </select>
+              </div>
+
+
+              <div className="formGroup">
+                <label htmlFor="limit">Total:</label>
+                <input
+                  name="limit"
+                  id="limit"
+                  value={limit}
+                  onChange={handleInputChange}
+
+                ></input>
               </div>
 
               <button

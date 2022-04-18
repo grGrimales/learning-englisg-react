@@ -2,7 +2,7 @@ import { types } from "../type/types";
 
 const initialState = {
   listCategory: [],
-  listFileteredVocabulary: [],
+  listFiltered: [],
   showActivity: false,
   currentIndex: 0,
   activeWord: {},
@@ -19,7 +19,7 @@ export const vocabularyReducer = (state = initialState, action) => {
     case types.listFiltered:
       return {
         ...state,
-        listFileteredVocabulary: action.payload,
+        listFiltered: action.payload,
       };
 
     case types.updateShowActivity:

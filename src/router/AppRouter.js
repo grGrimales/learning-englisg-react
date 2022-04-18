@@ -7,7 +7,7 @@ import { startCheking } from "../action/auth";
 import { LearningEnglishRouter } from "./LearningEnglishRouter";
 import { PublicRoute } from "./PublicRoute";
 import { Espere } from "../components/Espere";
-import { updateShowActivity, updateActiveWord } from "../action/vocabulary";
+import { updateShowActivity, updateActiveWord, listFilteredVocabulary, setCurrentIndex } from "../action/vocabulary";
 
 export const AppRouter = () => {
   const { checking } = useSelector((state) => state.auth);
@@ -20,7 +20,11 @@ export const AppRouter = () => {
   const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
 
   dispatch(updateShowActivity(showActivity));
-  dispatch(updateActiveWord(listFiltered[currentIndex]));
+  dispatch(listFilteredVocabulary((listFiltered) ? listFiltered : []));
+
+  dispatch(updateActiveWord((listFiltered) ? listFiltered[currentIndex] : {}));
+  dispatch(setCurrentIndex((currentIndex) ? parseInt( currentIndex): 0))
+
 
   useEffect(() => {
     dispatch(startCheking());

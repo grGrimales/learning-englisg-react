@@ -1,3 +1,4 @@
+import { resolvePath } from "react-router-dom";
 import { fetchConToken, fetchSinToken } from "../helpers/fetch";
 import { types } from "../type/types";
 
@@ -22,10 +23,10 @@ const getListCategory = (listCategory) => ({
   payload: listCategory,
 });
 
-export const getListFilteredVocabulary = (order, category) => {
+export const getListFilteredVocabulary = (order, category, limit) => {
   return async (dispatch) => {
     const resp = await fetchConToken(
-      `vocabulary?order=${order}&category=${category}`
+      `vocabulary?order=${order}&category=${category}&limit=${limit}`
     );
 
     const body = await resp.json();
@@ -48,24 +49,44 @@ export const getListFilteredVocabulary = (order, category) => {
   };
 };
 
-export const nextActiveWord = () => {
+export const nextActiveWord = (activeWord) => {
   return async (dispatch) => {
-    const currentIndex = parseInt(localStorage.getItem("currentIndex")) + 1;
+ 
+    // Si se manda el id se aumenta en uno el conteo
+    if (activeWord.id) {
+      try {
+        const resp = await fetchConToken(
+          `vocabulary/increase-number-reproductions/${activeWord.id}`,
+          {},
+          'PUT',
+
+        );
+        const body = await resp.json();
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    const currentIndex =  parseInt(localStorage.getItem("currentIndex"));
     const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
 
-    localStorage.setItem(
-      "activeWord",
-      JSON.stringify(listFiltered[currentIndex])
-    );
-
-    localStorage.setItem("currentIndex", currentIndex);
-
-    dispatch(updateCurrentIndex(currentIndex));
-    dispatch(updateActiveWord(listFiltered[currentIndex]));
+    localStorage.setItem("activeWord", JSON.stringify(listFiltered[currentIndex ]));
+    dispatch(updateActiveWord(listFiltered[currentIndex ]));
   };
 };
 
-const listFilteredVocabulary = (list) => ({
+
+export const setCurrentIndex = (currentIndex) => {
+  return async (dispatch) => {
+    localStorage.setItem("currentIndex", currentIndex);
+
+    dispatch(updateCurrentIndex(currentIndex));
+
+
+  }
+}
+
+export const listFilteredVocabulary = (list) => ({
   type: types.listFiltered,
   payload: list,
 });
@@ -75,7 +96,7 @@ export const updateShowActivity = (showActivity) => ({
   payload: showActivity,
 });
 
-export const updateCurrentIndex = (currentIndex) => ({
+const updateCurrentIndex = (currentIndex) => ({
   type: types.updateCurrentIndex,
   payload: currentIndex,
 });
