@@ -248,13 +248,25 @@ const updateVocabulary = async (req, res = response) => {
         const vocabularysId = vocabularys.map(v => v.id);
 
         // Nos quedamos solo con los valores que queremos actualizar y tengan un id valido
-        const updateVocabulary = await data.db.filter(d =>
+        let updateVocabulary = await data.db.filter(d =>
             d.action === "update" && vocabularysId.includes(d.id)
         );
 
-        updateVocabulary.forEach(async u => {
+
+
+        // transformamos las categorias a un array
+        const updateVocabularySplitCategory = updateVocabulary.map(u => {
+
+            u.category = u.category.split("-")
+
+            return u;
+
+        });
+
+        updateVocabularySplitCategory.forEach(async u => {
             await Vocabulary.findByIdAndUpdate(u.id, u);
         });
+
 
         res.json({
             ok: true,
