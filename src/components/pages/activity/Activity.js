@@ -1,11 +1,20 @@
-import React from "react";
-import {Link} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 import imgUno from "../../../images/img-uno.png";
 import imgDos from "../../../images/img-dos.png";
+import { useState } from "react";
+import { FormActivity } from "./FormActivity";
 
 export const Activity = () => {
+  const navigate = useNavigate();
+
+  const handleForm = () => {
+    navigate("/form-activity");
+  };
+
   return (
     <>
+      {" "}
       <main className="animate__animated animate__fadeIn">
         <section className="sectionActivity">
           <h1 className="sectionActivity__title mt-5">Ejercicios</h1>
@@ -13,60 +22,26 @@ export const Activity = () => {
             Ejercicios Para mejorar tu aprendizaje
           </h2>
           <div className="containerActivity">
-            <div className="containerActivity__one">
+            <div className="containerActivity__one" onClick={handleForm}>
               <img
                 className="img-ej-uno"
                 src={imgUno}
                 alt="Persona practicando"
               />
-
-              <Link to='listening'/>
               Listening + Writing. Escucha palabras ya vistas y escríbelas.
+              {/* <Link to="/listening" >
+                   
+                  </Link> */}
             </div>
 
-            <div  className="containerActivity__two">
+            <div className="containerActivity__two">
               <img src={imgDos} alt="Persona practicando" />
               Remember words. Juega a recordar palabras ya vistas.
             </div>
           </div>
         </section>
 
-        {/* <section className="section-listening ocultar animate__animated animate__fadeIn">
-          <div className="contenedor-boton">
-            <button className="btn-return" type="submit">
-              <i className="fa-solid fa-rotate-left"></i>
-              Regresar
-            </button>
-          </div>
-          <div className="ejercicio-listening animate__animated animate__fadeIn">
-            <h1 className="text-center">Listening + Writing</h1>
-
-            <p>Escucha la palabra y escribela en el recuadro</p>
-            <div className="contenedor-listening">
-              <div className="contenedor-audio">
-                <audio id="audio-listening" controls>
-                  <source src="" type="audio/mp3" />
-                  Tu navegador no soporta audio HTML5.
-                </audio>
-              </div>
-              <form action="">
-                <div className="cotenedor-form">
-                  <input
-                    type="text"
-                    name="answer"
-                    id="answer"
-                    autofocus
-                    autocomplete="off"
-                  />
-                  <button className="btn-listening btn-regular" type="submit">
-                    Comprobar respuesta
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div className="contenedor-msj"></div>
-          </div>
-        </section>
+        {/* 
 
         <section className="section-remember-words ocultar animate__animated animate__fadeIn">
           <h1 className="text-center">Remember words</h1>
@@ -96,7 +71,7 @@ export const Activity = () => {
             <div className="contenedor-alert"></div>
           </div>
         </section> */}
-      </main>
+      </main>{" "}
     </>
   );
 };

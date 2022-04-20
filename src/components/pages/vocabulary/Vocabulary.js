@@ -17,13 +17,13 @@ export const Vocabulary = () => {
     setMessage(null);
   };
 
-  useEffect(() => { }, [showActivity]);
+  useEffect(() => {}, [showActivity]);
 
   const [formValues, handleInputChange, reset] = useForm({
     category: "--Seleccione--",
     order: "--Seleccione--",
-    limit:2,
-    repetir: 2
+    limit: 2,
+    repetir: 2,
   });
 
   const { category, order, limit, repetir } = formValues;
@@ -38,7 +38,7 @@ export const Vocabulary = () => {
       localStorage.setItem("category", category);
       localStorage.setItem("repetir", repetir);
       localStorage.setItem("order", order);
-      localStorage.setItem("limit", limit)
+      localStorage.setItem("limit", limit);
       setTimeout(() => {
         reset();
       }, 800);
@@ -100,27 +100,25 @@ export const Vocabulary = () => {
                 </select>
               </div>
 
-
               <div className="formGroup">
                 <label htmlFor="limit">Total:</label>
                 <input
+                  type="number"
                   name="limit"
                   id="limit"
                   value={limit}
                   onChange={handleInputChange}
-
                 ></input>
               </div>
-
 
               <div className="formGroup">
                 <label htmlFor="repetir">Repetir:</label>
                 <input
+                  type="number"
                   name="repetir"
                   id="repetir"
                   value={repetir}
                   onChange={handleInputChange}
-
                 ></input>
               </div>
 
