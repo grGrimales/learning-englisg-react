@@ -1,0 +1,52 @@
+.sectionActivity {
+
+    .sectionActivity__title{
+        text-align: center;
+    }
+}
+
+
+.containerActivity{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.87rem;
+
+    @include medium{
+        height: 100%;
+    }
+
+}
+
+
+.containerActivity__one,
+.containerActivity__two{
+    display: flex;
+    background-color: $color-div;
+    align-items: center;
+    margin-bottom: 1.25rem;
+    width: 80%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  @include medium {
+    margin-bottom: 1.25rem;
+    width: 40%;
+    padding: 0.62rem;
+  }
+
+    img {
+        width: 25%;
+        height: 100%;
+        padding-right: 1.25rem;
+    
+        @include medium {
+            width: 25%;
+            height: 25%;
+            padding-right: 1.25rem;
+          }
+      }
+
+}

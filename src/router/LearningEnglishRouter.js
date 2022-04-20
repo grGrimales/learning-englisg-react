@@ -7,6 +7,8 @@ import { VocabularyAc } from "../components/pages/vocabulary/VocabularyAc";
 
 import { getCategory } from "../action/vocabulary";
 import { NavBar } from "../components/pages/NavBar";
+import { Activity } from "../components/pages/activity/Activity";
+import { Listening } from "../components/pages/activity/Listening";
 
 export const LearningEnglishRouter = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,9 @@ export const LearningEnglishRouter = () => {
       <NavBar />
       <Routes>
         <Route path="/vocabulary" element={<Vocabulary />} />;
+        <Route path="/activity" element={<Activity />} />;
+        <Route path="/listening" element={<Listening />} />;
+
         <Route path="/" element={<Vocabulary />} />
       </Routes>
     </>

@@ -29,18 +29,17 @@ export const NavBar = () => {
                   `nav__links ${isActive ? "nav__links--active" : ""}`
                 }
               >
-                Home
+                Vocabulary
               </NavLink>
             </li>
-
             <li className="nav__item">
               <NavLink
-                to="/vocabulary"
+                to="/activity"
                 className={({ isActive }) =>
                   `nav__links ${isActive ? "nav__links--active" : ""}`
                 }
               >
-                Vocabulary
+                Actividad
               </NavLink>
             </li>
 
