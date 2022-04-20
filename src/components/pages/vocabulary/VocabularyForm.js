@@ -22,26 +22,8 @@ export const VocabularyForm = ({ initActivity, error, message }) => {
 
   const { category, order } = formValues;
 
-  const dispatch = useDispatch();
 
-  // const handleActivity = (e) => {
-  //   e.preventDefault();
 
-  //   if (category && order != "--Seleccione--") {
-  //     dispatch(getListFilteredVocabulary(order, category));
-  //     reset();
-  //     navigate("/vocabulary", { replace: true });
-  //     // localStorage.setItem("category", category);
-  //     setShowActivity(true);
-  //   } else {
-  //     setError(true);
-  //     setMessage("*Todos los campos son obligatorios");
-  //     setTimeout(() => {
-  //       removeError();
-  //     }, 3000);
-  //     console.log("Debe seleccionar ambos valores");
-  //   }
-  // };
 
   return (
     <>

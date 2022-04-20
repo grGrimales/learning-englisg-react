@@ -22,10 +22,11 @@ export const Vocabulary = () => {
   const [formValues, handleInputChange, reset] = useForm({
     category: "--Seleccione--",
     order: "--Seleccione--",
-    limit: 15
+    limit:2,
+    repetir: 2
   });
 
-  const { category, order, limit } = formValues;
+  const { category, order, limit, repetir } = formValues;
 
   const dispatch = useDispatch();
 
@@ -35,6 +36,9 @@ export const Vocabulary = () => {
     if (category != "--Seleccione--" && order != "--Seleccione--") {
       dispatch(getListFilteredVocabulary(order, category, limit));
       localStorage.setItem("category", category);
+      localStorage.setItem("repetir", repetir);
+      localStorage.setItem("order", order);
+      localStorage.setItem("limit", limit)
       setTimeout(() => {
         reset();
       }, 800);
@@ -103,6 +107,18 @@ export const Vocabulary = () => {
                   name="limit"
                   id="limit"
                   value={limit}
+                  onChange={handleInputChange}
+
+                ></input>
+              </div>
+
+
+              <div className="formGroup">
+                <label htmlFor="repetir">Repetir:</label>
+                <input
+                  name="repetir"
+                  id="repetir"
+                  value={repetir}
                   onChange={handleInputChange}
 
                 ></input>

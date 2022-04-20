@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { nextActiveWord, setCurrentIndex, updateActiveWord } from "../../../action/vocabulary";
+import { getListFilteredVocabulary, nextActiveWord, setCurrentIndex, updateActiveWord } from "../../../action/vocabulary";
 
 
 export const ActiveWord = ({
@@ -8,16 +8,49 @@ export const ActiveWord = ({
 }) => {
 
 
-  const { listFiltered, currentIndex, activeWord, showActivity } = useSelector((state) => state.vocabulary);
+  const { listFiltered, currentIndex, activeWord } = useSelector((state) => state.vocabulary);
   const audioRef = document.getElementById("audio");
+
+
+  // Guarda la informacion de todas las veces que se ha completado el listado
+  const [conteoReproducciones, setconteoReproducciones] = useState(1);
+
+  const repetir = parseInt(localStorage.getItem("repetir"));
 
   const dispatch = useDispatch();
 
   const hadleEndAudio = () => {
 
+
+
+    // si llegamos al final del listado y de repetir volvemos a consultar la base de datos y 
+    // refrecasr el listado
+    if (repetir < conteoReproducciones) {
+
+      const limit = parseInt(localStorage.getItem("limit"));
+      const order = localStorage.getItem("order");
+
+      const category = localStorage.getItem("category");
+      setconteoReproducciones(1)
+
+      dispatch(getListFilteredVocabulary(order, category, limit));
+      dispatch(nextActiveWord(listFiltered[0]));
+
+      dispatch(setCurrentIndex(0));
+      playAudio();
+      return;
+    }
+
+
+
+
+
+
     // Al final del listado, tenemos que reiniciar
     if (currentIndex >= (listFiltered.length - 1)) {
       //  dispatch(updateActiveWord(listFiltered[0]));
+      setconteoReproducciones(conteoReproducciones + 1)
+
       dispatch(nextActiveWord(listFiltered[0]));
 
       dispatch(setCurrentIndex(0));
@@ -43,15 +76,15 @@ export const ActiveWord = ({
 
       setTimeout(() => {
         audioRef?.play();
-      }, 200);
-    }, 400);
+      }, 500);
+    }, 500);
   };
 
 
   useEffect(() => {
     audioRef?.load();
 
-  }, [activeWord])
+  }, [activeWord, listFiltered])
 
 
 
