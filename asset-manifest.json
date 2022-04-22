@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/app-learning-english/static/css/main.c3e13335.css",
+    "main.js": "/app-learning-english/static/js/main.b7235bd2.js",
+    "static/media/img-uno.png": "/app-learning-english/static/media/img-uno.c15a3f68929c7ae9fa3e.png",
+    "static/media/img-dos.png": "/app-learning-english/static/media/img-dos.a3fab3c60542b4506848.png",
+    "static/media/logo-app.png": "/app-learning-english/static/media/logo-app.eb684ab1c55143b156bb.png",
+    "index.html": "/app-learning-english/index.html",
+    "main.c3e13335.css.map": "/app-learning-english/static/css/main.c3e13335.css.map",
+    "main.b7235bd2.js.map": "/app-learning-english/static/js/main.b7235bd2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c3e13335.css",
+    "static/js/main.b7235bd2.js"
+  ]
+}
