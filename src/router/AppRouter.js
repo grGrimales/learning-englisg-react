@@ -14,18 +14,22 @@ import {
   setCurrentIndex,
 } from "../action/vocabulary";
 
+import {
+updateKindActivy
+} from "../action/activity";
+
 export const AppRouter = () => {
   const { checking } = useSelector((state) => state.auth);
   const { logged } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-
+  const typeOfactivity = localStorage.getItem("typeOfactivity");
   const showActivity = localStorage.getItem("showActivity");
   const currentIndex = localStorage.getItem("currentIndex");
   const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
 
   dispatch(updateShowActivity(showActivity));
-
+  dispatch(updateKindActivy(typeOfactivity));
   dispatch(listFilteredVocabulary(listFiltered ? listFiltered : []));
 
   dispatch(updateActiveWord(listFiltered ? listFiltered[currentIndex] : {}));

@@ -21,7 +21,7 @@ export const ActiveWord = ({
 
   const hadleEndAudio = () => {
 
-
+     setTimeout(() => {
 
     // si llegamos al final del listado y de repetir volvemos a consultar la base de datos y 
     // refrecasr el listado
@@ -40,9 +40,6 @@ export const ActiveWord = ({
       playAudio();
       return;
     }
-
-
-
 
 
 
@@ -65,7 +62,11 @@ export const ActiveWord = ({
     dispatch(setCurrentIndex(currentIndex + 1));
 
     playAudio();
+     }, 870);
+
   };
+
+  //
 
 
   const playAudio = () => {
@@ -76,8 +77,8 @@ export const ActiveWord = ({
 
       setTimeout(() => {
         audioRef?.play();
-      }, 500);
-    }, 500);
+      }, 200);
+    }, 650);
   };
 
 

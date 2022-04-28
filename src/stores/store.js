@@ -3,10 +3,12 @@ import { authReducer } from "../reducers/authReducer";
 
 import thunk from "redux-thunk";
 import { vocabularyReducer } from "../reducers/vocabularyReducer";
+import { activityReducer } from "../reducers/activityReducer";
 
 const reducers = combineReducers({
   auth: authReducer,
   vocabulary: vocabularyReducer,
+  activity: activityReducer
 });
 
 const composeEnhancers =

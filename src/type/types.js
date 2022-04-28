@@ -16,6 +16,11 @@ export const types = {
 
   updateActiveWord: "[vocabulary] active word",
 
+
+  // Activitys
+
+  updateKindActivy: "[activity] update kind-activity]"
+
   // pageStartAddNew: "[  page] Start add new",
   // pageAddNew: "[  page] Add new",
   // pageUpdated: "[  page] Dashboard  updated",

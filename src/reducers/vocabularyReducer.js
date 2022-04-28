@@ -40,19 +40,6 @@ export const vocabularyReducer = (state = initialState, action) => {
         activeWord: action.payload,
       };
 
-    // case types.pageDeleted:
-    //   return {
-    //     ...state,
-    //     listadoPages: state.listadoPages.filter(
-    //       (project) => project.id !== action.payload
-    //     ),
-    //   };
-
-    // case types.pageUpdated:
-    //   return {
-    //     ...state,
-    //     pagesEditar: action.payload,
-    //   };
     default:
       return state;
   }

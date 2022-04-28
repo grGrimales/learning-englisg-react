@@ -2,13 +2,17 @@ import { useNavigate } from "react-router-dom";
 
 import imgUno from "../../../images/img-uno.png";
 import imgDos from "../../../images/img-dos.png";
-import { useState } from "react";
-import { FormActivity } from "./FormActivity";
+import { useDispatch } from "react-redux";
+import { setKindActivy } from "../../../action/activity";
 
 export const Activity = () => {
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleForm = () => {
+  const handleForm = (typeOfactivity) => {
+
+    dispatch(setKindActivy(typeOfactivity));
     navigate("/form-activity");
   };
 
@@ -22,7 +26,7 @@ export const Activity = () => {
             Ejercicios Para mejorar tu aprendizaje
           </h2>
           <div className="containerActivity">
-            <div className="containerActivity__one" onClick={handleForm}>
+            <div className="containerActivity__one" onClick={() => handleForm("listening")}>
               <img
                 className="img-ej-uno"
                 src={imgUno}
@@ -34,7 +38,7 @@ export const Activity = () => {
                   </Link> */}
             </div>
 
-            <div className="containerActivity__two">
+            <div className="containerActivity__two" onClick={ () => handleForm("remember")}>
               <img src={imgDos} alt="Persona practicando" />
               Remember words. Juega a recordar palabras ya vistas.
             </div>

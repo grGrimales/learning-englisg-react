@@ -41,7 +41,12 @@ export const getListFilteredVocabulary = (order, category, limit) => {
         "activeWord",
         JSON.stringify(listFiltered[currentIndex])
       );
-      dispatch(listFilteredVocabulary(listFiltered));
+      dispatch(listFilteredVocabulary(listFiltered.map((element) => {
+        return {
+          ...element,
+          show: false
+        }
+      })));
       dispatch(updateShowActivity(true));
       dispatch(updateCurrentIndex(currentIndex));
       dispatch(updateActiveWord(listFiltered[currentIndex]));

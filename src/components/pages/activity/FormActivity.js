@@ -11,6 +11,11 @@ export const FormActivity = () => {
   const { listCategory, showActivity } = useSelector(
     (state) => state.vocabulary
   );
+
+  const { typeOfactivity } = useSelector(
+    (state) => state.activity
+  );
+
   const [error, setError] = useState();
   const [message, setMessage] = useState();
 
@@ -19,12 +24,12 @@ export const FormActivity = () => {
     setMessage(null);
   };
 
-  useEffect(() => {}, [showActivity]);
+  useEffect(() => { }, [showActivity]);
 
   const [formValues, handleInputChange, reset] = useForm({
     category: "--Seleccione--",
     order: "--Seleccione--",
-    limit: 2,
+    limit: 10,
     repetir: 2,
   });
 
@@ -38,9 +43,16 @@ export const FormActivity = () => {
     if (category != "--Seleccione--" && order != "--Seleccione--") {
       dispatch(getListFilteredVocabulary(order, category, limit));
       localStorage.setItem("category", category);
-      localStorage.setItem("repetir", repetir);
+      //  localStorage.setItem("repetir", repetir);
       localStorage.setItem("order", order);
       localStorage.setItem("limit", limit);
+
+
+      if(typeOfactivity === "remember") {
+        navigate("/remember-activity");
+      }
+
+
       setTimeout(() => {
         reset();
       }, 800);
@@ -65,7 +77,7 @@ export const FormActivity = () => {
           X
         </button>
         <section className="sectionVocabulary mt-3 animate__animated animate__fadeIn">
-          <h1 className="sectionVocabulary__title">Listening + writting</h1>
+          <h1 className="sectionVocabulary__title">Remember words</h1>
           <form className="sectionVocabulary__form">
             <div className="formGroup">
               <label htmlFor="category">Selecciona una categoría:</label>
@@ -115,7 +127,7 @@ export const FormActivity = () => {
               ></input>
             </div>
 
-            <div className="formGroup">
+            {/*             <div className="formGroup">
               <label htmlFor="repetir">Repetir:</label>
               <input
                 type="number"
@@ -125,7 +137,7 @@ export const FormActivity = () => {
                 onChange={handleInputChange}
               ></input>
             </div>
-
+ */}
             <button
               className="sectionVocabulary__btn btnRegular"
               type="submit"
