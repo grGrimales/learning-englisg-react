@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/learning-englisg-react/static/css/main.24820e0e.css",
-    "main.js": "/learning-englisg-react/static/js/main.27218d7e.js",
+    "main.js": "/learning-englisg-react/static/js/main.6418f951.js",
     "static/media/img-uno.png": "/learning-englisg-react/static/media/img-uno.c15a3f68929c7ae9fa3e.png",
     "static/media/img-dos.png": "/learning-englisg-react/static/media/img-dos.a3fab3c60542b4506848.png",
     "static/media/logo-app.png": "/learning-englisg-react/static/media/logo-app.eb684ab1c55143b156bb.png",
     "index.html": "/learning-englisg-react/index.html",
     "main.24820e0e.css.map": "/learning-englisg-react/static/css/main.24820e0e.css.map",
-    "main.27218d7e.js.map": "/learning-englisg-react/static/js/main.27218d7e.js.map"
+    "main.6418f951.js.map": "/learning-englisg-react/static/js/main.6418f951.js.map"
   },
   "entrypoints": [
     "static/css/main.24820e0e.css",
-    "static/js/main.27218d7e.js"
+    "static/js/main.6418f951.js"
   ]
 }
