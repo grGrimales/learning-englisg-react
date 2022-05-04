@@ -73,12 +73,12 @@ export const ActiveWord = ({
     audioRef?.load();
 
     setTimeout(() => {
-      audioRef?.load();
+    //  audioRef?.load();
 
       setTimeout(() => {
         audioRef?.play();
       }, 200);
-    }, 650);
+    }, 850);
   };
 
 

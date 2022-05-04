@@ -56,7 +56,7 @@ export const getListFilteredVocabulary = (order, category, limit) => {
 
 export const nextActiveWord = (activeWord) => {
   return async (dispatch) => {
- 
+
     // Si se manda el id se aumenta en uno el conteo
     if (activeWord.id) {
       try {
@@ -72,11 +72,11 @@ export const nextActiveWord = (activeWord) => {
         console.log(error)
       }
     }
-    const currentIndex =  parseInt(localStorage.getItem("currentIndex"));
+    const currentIndex = parseInt(localStorage.getItem("currentIndex"));
     const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
 
-    localStorage.setItem("activeWord", JSON.stringify(listFiltered[currentIndex ]));
-    dispatch(updateActiveWord(listFiltered[currentIndex ]));
+    localStorage.setItem("activeWord", JSON.stringify(listFiltered[currentIndex]));
+    dispatch(updateActiveWord(listFiltered[currentIndex]));
   };
 };
 
@@ -87,6 +87,35 @@ export const setCurrentIndex = (currentIndex) => {
 
     dispatch(updateCurrentIndex(currentIndex));
 
+
+  }
+}
+
+
+export const updateCategoryRepasar = (id) => {
+  return async (dispatch) => {
+
+    const resp = await fetchConToken(
+      `vocabulary/add-category-to-vocabulary/${id}`,
+      {},
+      'PUT',
+
+    );
+    const body = await resp.json();
+
+    const listFiltered = JSON.parse(localStorage.getItem("listFiltered"));
+
+    const updateListFiltered = listFiltered.map((vocabulary) => {
+      if (vocabulary.id === id) {
+        vocabulary.category = body.vocabulary.category
+        return vocabulary
+      } else {
+        return vocabulary
+      }
+    })
+    localStorage.setItem("listFiltered", JSON.stringify(updateListFiltered));
+
+    dispatch(listFilteredVocabulary(updateListFiltered ? updateListFiltered : []));
 
   }
 }
