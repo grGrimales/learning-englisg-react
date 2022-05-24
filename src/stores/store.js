@@ -4,11 +4,13 @@ import { authReducer } from "../reducers/authReducer";
 import thunk from "redux-thunk";
 import { vocabularyReducer } from "../reducers/vocabularyReducer";
 import { activityReducer } from "../reducers/activityReducer";
+import { storyReducers } from "../reducers/storysReducers";
 
 const reducers = combineReducers({
   auth: authReducer,
   vocabulary: vocabularyReducer,
-  activity: activityReducer
+  activity: activityReducer,
+  story: storyReducers
 });
 
 const composeEnhancers =

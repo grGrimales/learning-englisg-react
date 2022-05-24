@@ -19,7 +19,13 @@ export const types = {
 
   // Activitys
 
-  updateKindActivy: "[activity] update kind-activity]"
+  updateKindActivy: "[activity] update kind-activity]",
+
+
+  // Storys
+
+  updateStorysList : "[storys] update list stroys",
+  updateStory: "[storys] update story"
 
   // pageStartAddNew: "[  page] Start add new",
   // pageAddNew: "[  page] Add new",

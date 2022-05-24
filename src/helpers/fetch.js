@@ -1,4 +1,5 @@
-const baseUrl = "https://learn-english-backend-app.herokuapp.com/api";
+//const baseUrl = "https://learn-english-backend-app.herokuapp.com/api";
+const baseUrl = "http://localhost:8080/api";
 
 export const fetchSinToken = (endpoint, data, method = "GET") => {
   const url = `${baseUrl}/${endpoint}`;
